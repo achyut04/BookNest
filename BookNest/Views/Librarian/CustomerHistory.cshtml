@@ -1,0 +1,47 @@
+﻿@model List<BorrowRecord>
+
+@{
+    ViewBag.Title = "Customer Borrowing History";
+}
+
+<div class="container mt-5">
+    <h2>Borrowing History for @Model.FirstOrDefault()?.User?.Username</h2>
+
+    @if (ViewBag.Message != null)
+    {
+        <div class="alert alert-warning">
+            @ViewBag.Message
+        </div>
+    }
+    else
+    {
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Date Issued</th>
+                    <th>Date Returned</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var record in Model)
+                {
+                    <tr>
+                        <td>@record.Book.Title</td>
+                        <td>@record.DateIssued.ToShortDateString()</td>
+                        <td>
+                            @if (record.DateReturned.HasValue)
+                            {
+                                @record.DateReturned.Value.ToShortDateString()
+                            }
+                            else
+                            {
+                                <span class="text-danger">Not Returned</span>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>

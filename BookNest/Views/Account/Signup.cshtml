@@ -1,0 +1,43 @@
+﻿@{
+    ViewBag.Title = "Signup";
+}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header text-center">
+                    <h3>Signup</h3>
+                </div>
+                <div class="card-body">
+                    @if (ViewBag.ErrorMessage != null)
+                    {
+                        <div class="alert alert-danger">@ViewBag.ErrorMessage</div>
+                    }
+                    <form asp-action="Signup" method="post">
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Username</label>
+                            <input type="text" class="form-control" id="username" name="username" required />
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password" name="password" required />
+                        </div>
+                        <div class="mb-3">
+                            <label for="role" class="form-label">Role</label>
+                            <select class="form-select" id="role" name="role">
+                                <option value="Customer" selected>Customer</option>
+                                <option value="Librarian">Librarian</option>
+                            </select>
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary">Signup</button>
+                        </div>
+                    </form>
+                    <div class="mt-3">
+                        Already have an account? <a href="@Url.Action("Login", "Account")">Login</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

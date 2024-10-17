@@ -1,0 +1,35 @@
+﻿@{
+    ViewBag.Title = "Issue a Book";
+}
+
+<div class="container mt-5">
+    <h2>Issue a Book</h2>
+    <form asp-action="IssueBook" method="post">
+        <div class="mb-3">
+            <label for="customerId" class="form-label">Select Customer</label>
+            <select id="customerId" name="userId" class="form-select" required>
+                <option value="">-- Select Customer --</option>
+                @foreach (var customer in ViewBag.Customers)
+                {
+                    <option value="@customer.UserId">@customer.Username</option>
+                }
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="bookId" class="form-label">Select Book</label>
+            <select id="bookId" name="bookId" class="form-select" required>
+                <option value="">-- Select Book --</option>
+                @foreach (var book in ViewBag.AvailableBooks)
+                {
+                    <option value="@book.BookId">@book.Title</option>
+                }
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Issue Book</button>
+    </form>
+
+    @if (ViewBag.ErrorMessage != null)
+    {
+        <div class="alert alert-danger mt-3">@ViewBag.ErrorMessage</div>
+    }
+</div>

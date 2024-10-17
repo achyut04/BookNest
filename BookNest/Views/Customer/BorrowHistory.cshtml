@@ -1,0 +1,28 @@
+﻿@model List<BorrowRecord>
+
+@{
+    ViewBag.Title = "Borrowing History";
+}
+
+<div class="container mt-5">
+    <h2>Your Borrowing History</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Date Issued</th>
+                <th>Date Returned</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var record in Model)
+            {
+                <tr>
+                    <td>@record.Book.Title</td>
+                    <td>@record.DateIssued.ToShortDateString()</td>
+                    <td>@(record.DateReturned.HasValue ? record.DateReturned.Value.ToShortDateString() : "Not Returned")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

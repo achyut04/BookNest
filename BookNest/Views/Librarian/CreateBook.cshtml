@@ -1,0 +1,33 @@
+﻿@model Book
+
+@{
+    ViewBag.Title = "Add New Book";
+}
+
+
+<div class="container mt-5">
+    <h2>Add New Book</h2>
+    <form asp-action="CreateBook" method="post">
+        <div class="mb-3">
+            <label class="form-label">Title</label>
+            <input type="text" class="form-control" asp-for="Title" required />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Author</label>
+            <input type="text" class="form-control" asp-for="Author" required />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Year Published</label>
+            <input type="number" class="form-control" asp-for="YearPublished" required />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">ISBN</label>
+            <input type="text" class="form-control" asp-for="ISBN" required />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Total Copies</label>
+            <input type="number" class="form-control" asp-for="TotalCopies" required />
+        </div>
+        <button type="submit" class="btn btn-primary">Add Book</button>
+    </form>
+</div>

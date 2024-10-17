@@ -1,0 +1,42 @@
+﻿@model List<BorrowRecord>
+
+@{
+    ViewBag.Title = "Issued Books";
+}
+
+<div class="container mt-5">
+    <h2>Issued Books</h2>
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info">No books are currently issued.</div>
+    }
+    else
+    {
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Issued To (Customer)</th>
+                    <th>Date Issued</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var record in Model)
+                {
+                    <tr>
+                        <td>@record.Book.Title</td>
+                        <td>@record.User.Username</td>
+                        <td>@record.DateIssued.ToShortDateString()</td>
+                        <td>
+                            <form asp-action="ReturnBook" method="post">
+                                <input type="hidden" name="borrowRecordId" value="@record.BorrowRecordId" />
+                                <button type="submit" class="btn btn-success">Return Book</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>

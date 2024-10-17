@@ -1,0 +1,28 @@
+﻿@model List<Book>
+
+@{
+    ViewBag.Title = "Available Books";
+}
+
+<div class="container mt-5">
+    <h2>Available Books</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Year Published</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var book in Model)
+            {
+                <tr>
+                    <td>@book.Title</td>
+                    <td>@book.Author</td>
+                    <td>@book.YearPublished</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

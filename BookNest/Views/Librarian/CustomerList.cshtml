@@ -1,0 +1,28 @@
+﻿@model List<User>
+
+@{
+    ViewBag.Title = "Customer List";
+}
+
+<div class="container mt-5">
+    <h2>Customer List</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var customer in Model)
+            {
+                <tr>
+                    <td>@customer.Username</td>
+                    <td>
+                        <a href="@Url.Action("CustomerHistory", "Librarian", new { customerId = customer.UserId })" class="btn btn-primary">View Borrowing History</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
