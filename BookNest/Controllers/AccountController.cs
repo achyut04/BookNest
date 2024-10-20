@@ -95,11 +95,11 @@ namespace BookNest.Controllers
 
             if (user.Role == "Librarian")
             {
-                return RedirectToAction("Dashboard", "Librarian");
+                return RedirectToAction("ViewIssuedBooks", "Librarian");
             }
             else
             {
-                return RedirectToAction("Dashboard", "Customer");
+                return RedirectToAction("ViewBooks", "Customer");
             }
         }
 
