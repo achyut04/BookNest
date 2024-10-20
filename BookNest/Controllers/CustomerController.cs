@@ -13,27 +13,17 @@ namespace BookNest.Controllers
             _context = context;
         }
 
-        [HttpGet]
-        public ActionResult Dashboard()
-        {
-            if (HttpContext.Session.GetString("Role") != "Customer")
-            {
-                return RedirectToAction("Login", "Account");
-            }
-
-            return View();
-        }
 
         [HttpGet]
         public ActionResult ViewBooks()
         {
             if (HttpContext.Session.GetString("Role") != "Customer")
             {
-                return RedirectToAction("Login", "Account");
+                ViewBag.Message = "Only customers can view available books.";
+                return View("NotAllowed");
             }
 
             var books = _context.Books.Where(b => b.CopiesAvailable > 0).ToList();
-
             return View(books);
         }
 
@@ -43,7 +33,8 @@ namespace BookNest.Controllers
         {
             if (HttpContext.Session.GetString("Role") != "Customer")
             {
-                return RedirectToAction("Login", "Account");
+                ViewBag.Message = "Only customers can view their borrowing history.";
+                return View("NotAllowed");
             }
 
             int userId = (int)HttpContext.Session.GetInt32("UserId");

@@ -1,0 +1,18 @@
+﻿@model BookNest.Models.Book
+
+@{
+    ViewBag.Title = "Delete Book";
+}
+
+<div class="container mt-5">
+    <h2>Delete Book</h2>
+    <div class="alert alert-danger" role="alert">
+        Are you sure you want to delete the book titled <strong>@Model.Title</strong> by <strong>@Model.Author</strong>?
+    </div>
+
+    <form asp-action="DeleteBook" method="post">
+        <input type="hidden" asp-for="BookId" />
+        <button type="submit" class="btn btn-danger">Yes, Delete</button>
+        <a href="@Url.Action("ManageBooks", "Librarian")" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>

@@ -1,0 +1,38 @@
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+
+@{
+   string role = HttpContextAccessor.HttpContext.Session.GetString("Role");
+ }
+
+@{
+    ViewBag.Title = "Access Denied";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-danger text-white">
+                    <h4>Access Denied</h4>
+                </div>
+                <div class="card-body">
+                    <p class="lead">@ViewBag.Message</p>
+                    <hr />
+                    <p>You do not have permission to access this page. Please return to your dashboard or contact the administrator if you believe this is a mistake.</p>
+                    @if (role == "Customer")
+                    {
+                        <a class="navbar-brand" asp-area="" asp-controller="Customer" asp-action="ViewBooks">BookNest</a>
+                    }
+                    else if (role == "Librarian")
+                    {
+                        <a class="navbar-brand" asp-area="" asp-controller="Librarian" asp-action="ViewIssuedBooks">BookNest</a>
+                    }
+                        <i class="fa fa-home"></i> Back to Home
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

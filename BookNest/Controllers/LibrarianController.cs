@@ -13,23 +13,14 @@ namespace BookNest.Controllers
             _context = context;
         }
 
-        [HttpGet]
-        public ActionResult Dashboard()
-        {
-            if (HttpContext.Session.GetString("Role") != "Librarian")
-            {
-                return RedirectToAction("Login", "Account");
-            }
-
-            return View();
-        }
 
         [HttpGet]
         public ActionResult ManageBooks()
         {
             if (HttpContext.Session.GetString("Role") != "Librarian")
             {
-                return RedirectToAction("Login", "Account");
+                ViewBag.Message = "Only librarians can manage books.";
+                return View("NotAllowed");
             }
 
             var books = _context.Books.ToList();
@@ -41,7 +32,8 @@ namespace BookNest.Controllers
         {
             if (HttpContext.Session.GetString("Role") != "Librarian")
             {
-                return RedirectToAction("Login", "Account");
+                ViewBag.Message = "Only librarians can edit books.";
+                return View("NotAllowed");
             }
 
             var book = _context.Books.Find(id);
@@ -221,6 +213,34 @@ namespace BookNest.Controllers
             _context.SaveChanges();
 
             return RedirectToAction("CustomerHistory", new { customerId = customer.UserId });
+        }
+
+        [HttpGet]
+        public IActionResult DeleteBook(int id)
+        {
+            var book = _context.Books.Find(id);
+            if (book == null)
+            {
+                return NotFound();
+            }
+
+            return View(book);
+        }
+
+        [HttpPost, ActionName("DeleteBook")]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeleteConfirmed(int id)
+        {
+            var book = _context.Books.Find(id);
+            if (book == null)
+            {
+                return NotFound();
+            }
+
+            _context.Books.Remove(book);
+            _context.SaveChanges();
+
+            return RedirectToAction("ManageBooks"); 
         }
 
 
